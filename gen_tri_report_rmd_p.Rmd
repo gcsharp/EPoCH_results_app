@@ -1,0 +1,20 @@
+---
+title: "Triangulation report:P"
+output:
+ html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## Temporal specificity (timing of exposure)
+
+**Rationale:** the biological mechanisms that explain any effect of exposures during pregnancy are likely to be different from those that explain effects of exposures pre-or post-pregnancy. For example, while exposures during pregnancy could have direct intrauterine effects on the developing fetus, pre-pregnancy exposures may influence gamete (sperm and ovum/egg) development, and post-pregnancy exposures may affect child health via parenting behaviours or more directly in the case of passive smoke exposure. If there is a causal effect of exposure during pregnancy, we would expect estimates of the effect of the exposure in pregnancy to be greater (further from the null) than estimates of the effect of the exposure pre- or post-pregnancy. There may also be sensitive or critical windows of exposure during pregnancy, for example, an exposure may causally affect an outcome *only* if it occurs in the first trimester. Comparing effect estimates for exposures measured in different trimesters, with adjustment for exposures in previous stages, can help reveal these effects.
+
+**Assumptions:** No residual confounding, no selection of participants that induces spurious associations, any misclassification of exposure is not related to the outcome (and vice versa), misclassification of covariates are not systematically related to the exposure or outcome. In addition, these analyses also assume that exposures are measured on the same/similar scales at different time points.
+
+**A priori sources of bias:** Measurement error in exposure, measurement error in outcome, unmeasured (or residual) confounding, misclassification of exposure/outcome related to the outcome/exposure, differential missing data between exposure levels due to loss to follow-up. In addition, exposures measured on different scales at different time points.
+
+**Possible insights from the plot below:** If there is a sensitive/critical period, we would expect to see stronger effects (i.e. estimates further from the null) in those periods, compared to others. These observations should remain after adjustment for the exposure in a previous period.

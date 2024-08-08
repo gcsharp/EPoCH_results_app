@@ -1,0 +1,25 @@
+---
+title: "Triangulation report:MVR"
+output:
+ html_document
+---
+
+```{r setup, include=FALSE, echo=F,results='asis'}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(ggplot2)
+
+```
+
+### Multivariable regression of the exposure any time in pregnancy
+
+**Rationale:** Adjusting for measured potential confounders in multivariable regression models can help to reduce bias from confounding.
+
+**Assumptions:** No residual confounding, no selection of participants that induces spurious associations, any misclassification of exposure is not related to the outcome (and vice versa), misclassification of covariates are not systematically related to the exposure or outcome.
+
+**A priori sources of bias:** Measurement error in exposure, measurement error in outcome, unmeasured (or residual) confounding, misclassification of exposure/outcome related to the outcome/exposure, differential missing data between exposure levels due to loss to follow-up.
+
+**Expected direction of bias if affected by residual confounding:** Estimates are most likely biased *away from* the null (i.e., if there is a true effect, the magnitude is likely to be exaggerated in these results).
+
+**Possible insights from the plot below:** The plot shows the effect estimates (from the meta-analysis where more than one cohort contributed data) for the relationship between the exposure ever during pregnancy and the outcome, with different sets of variables adjusted for in the models. If the expected direction of bias is correct, estimates will move towards the null as more variables are included in the model (i.e., as confounding is reduced). However, sometimes adjusting for variables that are on the causal pathway between an exposure and an outcome (i.e. *mediators*) can introduce *collider bias* that can bias estimates away from the null, so estimates for models adjusted for mediators may not fit this pattern.
+

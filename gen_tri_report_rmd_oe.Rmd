@@ -1,0 +1,16 @@
+---
+title: "Triangulation report:otherexposures"
+output:
+ html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## Different exposure definitions
+
+This plot (generated if the data are available) shows how different exposure definitions (i.e., other than the main exposures of active smoking, general alcohol consumption, and caffeine consumption from any source) are related to the outcome of interest. These "different exposure definitions" include passive smoking, early onset smoking, binge drinking of alcohol, and caffeine intake from specific beverages - tea, coffee and cola.
+
+This information provides further context to help interpret the relationship between the main exposure of interest and outcome.

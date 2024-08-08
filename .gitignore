@@ -1,0 +1,7 @@
+
+.DS_Store
+*.csv
+*.rds
+*.html
+*.dcf
+*.history

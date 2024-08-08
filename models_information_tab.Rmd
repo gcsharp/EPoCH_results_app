@@ -1,0 +1,58 @@
+---
+title: "models_information_tab"
+author: "Gemma Sharp"
+date: "2024-05-03"
+output: html_document
+---
+
+<center>
+
+## Regression models
+
+</center>
+
+Separately for each cohort, we conducted linear (for continuous outcomes) and logistic (for binary outcomes) multivariable regression models for each possible exposure/outcome combination.
+
+Ordinal exposure variables were recoded as binary variables, comparing each exposed level (light, moderate, heavy) to unexposed (none).
+
+For each model, analyses were complete-case, so participants with any missing data for the exposure, outcome or any covariate were excluded from that model.
+
+### Observational models
+
+For our observational (i.e. non-genetic) analyses, we ran models with two main adjustment sets: 
+
+**Minimal adjustment:** this allowed us to explore associations with maximum power and minimum selection, while still controlling for important covariates. This model included the child’s sex, the parent-of-interest’s ethnicity, and child’s age if the outcome was measured at different ages within an age stage (i.e. if there was variation in child’s age).
+
+**Standard adjustment:** this allowed us to control for potential confounders we identified using Directed Acyclic Graphs (DAGs). Variables were the same as those in the minimal adjustment set, plus the parent-of-interest’s age, education, occupation and parity (for mothers only). To account for correlation between smoking, alcohol and caffeine consumption, models assessing one of these health behaviours as an exposure were additionally adjusted for the other two in the parent-of-interest.
+
+Additionally, for exposures that are time-specific in or after pregnancy (i.e. ever in pregnancy, first/second/third trimester, or post-natal), we ran a third model:
+
+**Standard adjustment plus exposure at previous timepoints:** we attempted to control for correlation with previous timepoints by adjusting for the standard adjustment set, plus the exposure in the parent-of-interest at all previous timepoints.
+
+Finally, we ran a sensitivity analysis:
+
+**Standard adjustment plus potential mediators:** this adjustment set was designed to help us explore the direct effect of the exposure on the outcome by controlling for factors that (most likely) occur after the exposure and could sit on the causal pathway to the outcome. These potentially mediating factors are gestational age at delivery, birthweight, and postnatal exposures (i.e., child’s passive smoking, alcohol, and caffeine consumption before the age of 2). The adjustment set comprised the standard adjustment set, plus these potential mediators, only where data were available and where the outcome was measured after the potential mediator (e.g., postnatal exposures were not included in models where the outcome was birthweight). Models were run as a sensitivity analysis and results should be considered with caution because adjusting for mediators on the causal pathway has the potential to introduce [collider bias.](https://catalogofbias.org/biases/collider-bias/)
+
+### Genetic risk score models
+
+For models where the exposure was a GRS, there were two adjustment sets: 
+
+**Standard adjustment:** this adjustment set comprised the parent-of-interest’s age at DNA collection (years), 10 genetically-derived principal components (PCs; to adjust for population stratification), and child’s sex and age (to control for important sources of variation in the outcome and therefore increase precision of the estimate).
+
+**Standard adjustment plus mediators:**  this adjustment set is designed to explore the direct effect of the parent-of-interest while controlling for genetic transmission. In addition to the variables included in the standard model, it additionally includes the GRS and 10 PCs derived from the child’s genotype data.
+
+### Mutual adjustment
+
+All observational and genetic models were run with and without adjustment for the other parent’s exposure/GRS. Mutually-adjusted models (i.e. adjusted for the other parent's exposure/GRS) allow us to estimate the effect of each parent’s exposure/GRS, independent of the effect of the exposure/GRS in the co-parent. Comparison to the non-mutually-adjusted models allow us to assess how much of the original estimate was likely to have been driven by correlation between the parents’ exposures.
+
+### Sex-stratified models
+
+To allow exploration of sex-specific effects (which are supported by some DOHaD studies), all models were additionally run stratified by sex of the child. In these models, sex was not included as a covariate.
+
+<center>
+
+## Meta-analysis
+
+</center>
+
+Where more than one cohort contributed results to an exposure/outcome combination, we estimated the weighted average effect across cohorts by inverse-variance weighted meta-analysis using the [metafor](https://www.metafor-project.org/doku.php/metafor) package in R. Fixed-effects meta-analysis was used, because this is the most appropriate method when there are a small number of studies. 

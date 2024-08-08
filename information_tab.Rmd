@@ -1,0 +1,47 @@
+---
+title: "information_tab"
+author: "Gemma Sharp"
+date: "2023-11-10"
+output: html_document
+---
+
+<center>
+
+## Welcome to
+
+</center>
+
+```{r, echo=FALSE, out.width="40%",fig.align = "center"}
+library(knitr)
+knitr::include_graphics("www/logo.png")
+dat <- global_data$data$all_res
+options(scipen=999)
+```
+
+This website allows you to explore and download the results of the Exploring Prenatal Influences on Child Health (EPoCH) study.
+
+### About the EPoCH study
+
+EPoCH is an epidemiological study that takes a systematic approach to explore associations between prenatal parental health behaviours and multiple child health outcomes.
+
+The study combines data from four longitudinal cohort studies (ALSPAC, BiB, MoBa, and MCS), with a combined maximum sample size of [**`r max(dat$total_n,na.rm=T)`**]{.underline}. Regression analyses were performed within each cohort, and then, where possible, results were meta-analysed to produce average effect estimates across the cohorts.
+
+EPoCH generated results from [**`r nrow(dat)`**]{.underline} models, exploring associations between [**`r length(unique(dat$exposure_linker[-which(dat$exposure_class == "socioeconomic position"|dat$person_exposed=="partner")]))`**]{.underline} variables describing parental health behaviours (reflecting different types and timings of exposure to parental **smoking**, **alcohol** consumption, **caffeine** consumption), and [**`r length(unique(dat$outcome_linker))`**]{.underline} child health outcomes (reflecting different traits relating to **body size and composition**, **psychosocial** and **cognitive** factors, **immunology**, **blood pressure**, and serum **biomarkers**, measured at several ages). Where possible, health behaviours from both parents are studied. Associations between parental **socioeconomic position** and child health outcomes are also presented for comparison.
+
+### What can I do with EPoCH Explorer?
+
+EPoCH explorer is a web app providing interactive and customisable data visualisations, interpretations, and downloads to disseminate results from the EPoCH study. It is a useful tool for research and it can also serve as an aid for teaching about causal inference and triangulation of evidence garnered from observational data.
+
+Click the tabs in the navigation bars above to explore EPoCH results.
+
+![](www/city-solid.svg){width="23" height="23"} **Manhattan plots:** visualise trends by summarising the results (P values or effect estimates) across all exposures and outcomes.
+
+![](www/volcano-solid.svg){width="23" height="23"} **Volcano plots:** visualise results by both precision (P value) and magnitude of association (effect estimate), while comparing results for each parent side by side.
+
+![](www/chart-gantt-solid.svg){width="23" height="23"} **Coefficient plots:** compare effect estimates and 95% confidence intervals across up to four different exposure/model combinations, for different sets of outcomes.
+
+![](www/otter-solid.svg){width="23" height="23"} **Deep dive:** narrow in on a specific exposure/outcome/model combination to find out more about the data used to derive the result, its interpretation, and to see how the result from each cohort compares to the meta-analysed summary in a forest plot.
+
+![](www/file-solid.svg){width="23" height="23"} **Causal inference and interpretation report:** see a report to help you evaluate and interpret the evidence around whether a parental health behaviour *in pregnancy* has a causal effect on your chosen outcome.
+
+![](www/download-solid.svg){width="23" height="23"} **Download results:** download all the results from EPoCH for further exploration and use in your own research.

@@ -1,0 +1,14 @@
+---
+title: "Triangulation report:sep"
+output:
+ html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## Comparison to socioeconomic position
+
+Health behaviours like smoking, alcohol and caffeine consumption are often heavily socially patterned - meaning that some sociodemographics are more likely to engage in them than others. This plot (generated if the data are available) shows how measures of parental socioeconomic position (education and occupation) are related to the outcome of interest. The effect estimates are provided alongside the effect estimate for the main exposure of interest for comparison. This helps to *contextualise* the evidence. Where the effect estimate for the main exposure is similar to or closer to null than the estimate for socioeconomic position (even after adjustment for socioeconomic position), this suggests that the most effective intervention might be best targeted at the social level (e.g. to tackle health inequalities) rather than the individual.

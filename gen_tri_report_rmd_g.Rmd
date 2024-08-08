@@ -1,0 +1,22 @@
+---
+title: "Triangulation report:GRS"
+output:
+ html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## Genetic risk scores {data-link="Genetic risk scores"}
+
+**Rationale:** A genetic risk score (GRS) contains several genetic variants that have been shown to robustly relate to the exposure of interest. Genetic variation is fixed at conception and therefore cannot be modified by exposures occuring after conception. This means that a GRS will be robustly associated with an exposure, but cannot be affected by factors that might confound any association between that exposure and an outcome. Therefore, a GRS can be used to 'proxy' or 'instrument' an exposure to assess its potential causal effect on an outcome while overcoming some types of confounding. This is the principle behind the Mendelian randomization approach.
+
+**Assumptions:** There are three main assumptions: (1) Relevance: the genetic variant is associated with the exposure of interest; (2) Independence: there are no unmeasured confounders of the association between the exposure and outcome; (3) Exclusion restriction: the GRS affects the outcome *only* via its effect on the exposure.
+
+**A priori sources of bias:** Violation of any of the three assumptions above; population stratification.
+
+**Expected direction of bias:** Violation of the relevance assumption would introduce 'weak instrument bias', which would bias estimates towards the null. Given that parents transmit 50% of their genetic information to their children, some of the estimated effect may be driven by genetic transmission rather than a causal effect of the exposure. Therefore, without adjustment for child's GRS, the effect estimate may be overestimated away from the null. However, adjusting for child's GRS may introduce collider bias that would also push the effect estimate away from the null (and potentially in a different direction). Additionally adjusting for the other parent's GRS may help to avoid collider bias.
+
+**Possible insights from the plot below:** Generally, the power for genetic analyses is lower than for observational analyses because the sample size with genetic data is lower and/or the GRS only partially explains the variance in the exposure. Therefore, confidence intervals are likely to be wide. However, where estimates are large and/or confidence intervals do not cross the null, there is some evidence of a causal effect.

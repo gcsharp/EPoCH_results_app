@@ -1,0 +1,20 @@
+---
+title: "Triangulation report:D"
+output:
+ html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## Dose-response
+
+**Rationale:** if there is a causal effect of an exposure on an outcome, greater levels of the exposure should be associated with a stronger effect.
+
+**Assumptions:** No residual confounding, no selection of participants that induces spurious associations, any misclassification of exposure is not related to the outcome (and vice versa), misclassification of covariates are not systematically related to the exposure or outcome.
+
+**A priori sources of bias:** Measurement error in exposure, measurement error in outcome, unmeasured (or residual) confounding, misclassification of exposure/outcome related to the outcome/exposure, differential missing data between exposure levels due to loss to follow-up.
+
+**Possible insights from the plot below:** If there is a dose-response effect, the plot should show effect estimates moving away from the null as the exposure level increases.

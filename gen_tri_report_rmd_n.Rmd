@@ -1,0 +1,22 @@
+---
+title: "Triangulation report:NegCon"
+output:
+ html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## Maternal vs partner comparisons
+
+**Rationale:** Parents tend to live in the same household, or at least share similar environments. They may also share other characteristics due to assortative mating, whereby people from similar demographics tend to form relationships with each other. Biological parents also share 50% of their genomes with their children. Therefore, exposure variables for each parent are likely to be correlated with each other, and with a set of (unmeasured and measured) 'familial' confounders. Accordingly, when estimating the effect of one parent's exposure, independent of the co-parent's exposure, it is important to adjust for the co-parent's exposure. In addition, when we are interested in the independent effect of the mother's exposure during pregnancy, under the hypothesis that the exposure has an intrauterine effect on the fetus, the partner's exposure can be considered as a *negative control* because it cannot plausibly affect the outcome except via an effect on the mother. In this case, after adjustment for the mother's exposure, any residual association between the partner's exposure and the outcome may be explained by residual confounding by familial confounders. By comparing mutually adjusted estimates of the maternal and partner effects, we can examine the strength of evidence for a causal maternal intrauterine effect.
+
+**Assumptions:** The key sources of bias (specific confounders, misclassification bias and other biases) are the same (shared) for the maternal and partner exposures; there is no real caulsal effect of the partner's exposure on the outcome *operating via the same mechanism as the maternal effect*. The maternal and partner exposures are measured on the same/similar scales.
+
+**A priori sources of bias:** The sources of bias between the maternal and partner exposure are different (i.e. they aren't shared). There is a real causal effect of the partner's exposure on the outcome that *operates via the same mechanism as the maternal effect.*
+
+**Expected direction of bias if confounded by SEP:** Prior to mutual adjustment, estimates are most likely biased *away from* the null (i.e., if there is a true effect, the magnitude is likely to be exaggerated in these results).
+
+**Possible insights from the plot below:** Where the estimated effect of one parent's exposure is greater than that of another, even after mutual adjustment, this suggests a potential causal effect of that parent's exposure on the outcome. Where mutually-adjusted estimates move to the null, with confidence intervals that cross the null, this suggests that the association is more likely to be explained by (residual) shared familial confounding than a true causal effect.
