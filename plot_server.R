@@ -180,7 +180,7 @@ output$exposureManhattanPlot_p <- renderPlotly({
       model <- global_data$df_models$shortname[global_data$df_models$name == input$model_choice_forest]
       dat <- global_data$data$all_res[which(global_data$data$all_res$model==model),]
       dat <- dat[which(tolower(dat$exposure_linker)==tolower(input$forest_explink) &
-                         dat$outcome_linker==tolower(input$forest_outlink)),]
+                         tolower(dat$outcome_linker)==tolower(input$forest_outlink)),]
       print(dim(dat))
       print(head(dat))
       forest_df <- create_forest_dfs(dat, input$forest_explink, input$forest_outlink)
@@ -201,7 +201,8 @@ output$exposureManhattanPlot_p <- renderPlotly({
       print(dim(triang_sum))
       triang_sum <- droplevels(triang_sum[(tolower(triang_sum$exposure)==tolower(input$exposure_class_tri))&
                                             (tolower(triang_sum$outcome_subclass2)==tolower(input$outcome_subclass2_tri))&
-                                            (tolower(triang_sum$parent)==tolower(input$exposure_person_tri)),])
+                                            (tolower(triang_sum$parent)==tolower(input$exposure_person_tri))&
+                                            grepl(tolower(triang_sum$outcome_subclass),pattern=tolower(input$outcome_time_tri)),])
           print(dim(triang_sum))
       print(head(triang_sum))
       create_triangsum_plot(triang_sum)
@@ -216,10 +217,14 @@ output$exposureManhattanPlot_p <- renderPlotly({
       expclass <- tolower(input$exposure_class_tri)
       parent <- tolower(input$exposure_person_tri)
       outc <- tolower(input$outcome_subclass2_tri)
-      create_triangmvr_plot(df,expclass,parent,outc)
+      outtime <-tolower(input$outcome_time_tri)
+      P <-try(create_triangmvr_plot(df,expclass,parent,outc,outtime,dose=F,grs=F,time=F,sep=F,oe=F))
+      if("try-error" %in% class(P)){
+        P <-create_null_plotly()
+      }
+      P
     })
   })
-  
   
   output$triangNCplot <- renderPlotly({
     if (input$gen_tri_report == 0)
@@ -229,9 +234,15 @@ output$exposureManhattanPlot_p <- renderPlotly({
       expclass <- tolower(input$exposure_class_tri)
       parent <- tolower(input$exposure_person_tri)
       outc <- tolower(input$outcome_subclass2_tri)
-      create_triangNC_plot(df,expclass,parent,outc)
+      outtime <-tolower(input$outcome_time_tri)
+      P<-create_triangNC_plot(df,expclass,parent,outc,outtime,dose=F,grs=F,time=F,sep=F,oe=F)
+      if("try-error" %in% class(P)){
+        P <-create_null_plotly()
+      }
+      P
     })
   })
+    
   
   output$triangDOSEplot <- renderPlotly({
     if (input$gen_tri_report == 0)
@@ -241,9 +252,15 @@ output$exposureManhattanPlot_p <- renderPlotly({
       expclass <- tolower(input$exposure_class_tri)
       parent <- tolower(input$exposure_person_tri)
       outc <- tolower(input$outcome_subclass2_tri)
-      create_triangDOSE_plot(df,expclass,parent,outc)
+      outtime <-tolower(input$outcome_time_tri)
+      P <- try(create_triangDOSE_plot(df,expclass,parent,outc,outtime,dose=T,grs=F,time=F,sep=F,oe=F))
+      if("try-error" %in% class(P)){
+        P <-create_null_plotly()
+      }
+      P
     })
   })
+    
   
   output$triangGRSplot <- renderPlotly({
     if (input$gen_tri_report == 0)
@@ -253,7 +270,12 @@ output$exposureManhattanPlot_p <- renderPlotly({
       expclass <- tolower(input$exposure_class_tri)
       parent <- tolower(input$exposure_person_tri)
       outc <- tolower(input$outcome_subclass2_tri)
-      create_triangGRS_plot(df,expclass,parent,outc)
+      outtime <-tolower(input$outcome_time_tri)
+      P <- try(create_triangGRS_plot(df,expclass,parent,outc,outtime,dose=F,grs=T,time=F,sep=F,oe=F))
+      if("try-error" %in% class(P)){
+        P <-create_null_plotly()
+      }
+      P
     })
   })
   
@@ -265,9 +287,15 @@ output$exposureManhattanPlot_p <- renderPlotly({
       expclass <- tolower(input$exposure_class_tri)
       parent <- tolower(input$exposure_person_tri)
       outc <- tolower(input$outcome_subclass2_tri)
-      create_triangTIME_plot(df,expclass,parent,outc)
+      outtime <-tolower(input$outcome_time_tri)
+      P <-try(create_triangTIME_plot(df,expclass,parent,outc,outtime,dose=F,grs=F,time=T,sep=F,oe=F))
+      if("try-error" %in% class(P)){
+        P <-create_null_plotly()
+      }
+      P
     })
   })
+
   
   output$triangSEPplot <- renderPlotly({
     if (input$gen_tri_report == 0)
@@ -277,7 +305,12 @@ output$exposureManhattanPlot_p <- renderPlotly({
       expclass <- tolower(input$exposure_class_tri)
       parent <- tolower(input$exposure_person_tri)
       outc <- tolower(input$outcome_subclass2_tri)
-      create_triangSEP_plot(df,expclass,parent,outc)
+      outtime <-tolower(input$outcome_time_tri)
+      P <-try(create_triangSEP_plot(df,expclass,parent,outc,outtime,dose=F,grs=T,time=F,sep=T,oe=F))
+      if("try-error" %in% class(P)){
+        P <-create_null_plotly()
+      }
+      P
     })
   })
   
@@ -289,7 +322,12 @@ output$exposureManhattanPlot_p <- renderPlotly({
       expclass <- tolower(input$exposure_class_tri)
       parent <- tolower(input$exposure_person_tri)
       outc <- tolower(input$outcome_subclass2_tri)
-      create_triangOE_plot(df,expclass,parent,outc)
+      outtime <-tolower(input$outcome_time_tri)
+      P <-try(create_triangOE_plot(df,expclass,parent,outc,outtime,dose=F,grs=F,time=F,sep=F,oe=T))
+      if("try-error" %in% class(P)){
+        P <-create_null_plotly()
+      }
+        P
     })
   })
   

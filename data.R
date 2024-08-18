@@ -187,65 +187,65 @@ interpret <- function(res,out1,exp1,model){
   exp_binary <- ifelse(grepl("binary|ordinal",exp1),T,F)
   out_binary <- ifelse(grepl("binary",out1),T,F)
   
-  dose <- res$exposure_dose[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]
-  n_cohorts <- res$cohorts_n[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]
-  cohorts <- res$cohorts[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]
-  I2 <- res$i2[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]
-  hetP <- res$hetp[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]
-  n_total <- res$total_n[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]
-  n_exp <- res$total_n_exposure[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]
-  n_out <- res$total_n_outcome[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]
-  name_out <- res$outcome_subclass2[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]
-  time_out <- res$outcome_time[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]
-  or <- exp(res$est[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1])
-  or_lci <- exp(res$est[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]-(1.96*res$se[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]))
-  or_uci <- exp(res$est[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]+(1.96*res$se[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]))
-  P <- res$p[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]
-  lci <- res$est[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]-(1.96*res$se[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1])
-  uci <- res$est[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]+(1.96*res$se[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1])
-  est <- res$est[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]
-  parent <- ifelse(res$person_exposed[res$model==model & tolower(res$exposure_linker)==exp1 & res$outcome_linker==out1]=="mother",
+  dose <- res$exposure_dose[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]
+  n_cohorts <- res$cohorts_n[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]
+  cohorts <- res$cohorts[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]
+  I2 <- res$i2[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]
+  hetP <- res$hetp[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]
+  n_total <- res$total_n[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]
+  n_exp <- res$total_n_exposure[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]
+  n_out <- res$total_n_outcome[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]
+  name_out <- res$outcome_subclass2[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]
+  time_out <- res$outcome_time[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]
+  or <- exp(res$est[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1])
+  or_lci <- exp(res$est[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]-(1.96*res$se[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]))
+  or_uci <- exp(res$est[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]+(1.96*res$se[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]))
+  P <- res$p[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]
+  lci <- res$est[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]-(1.96*res$se[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1])
+  uci <- res$est[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]+(1.96*res$se[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1])
+  est <- res$est[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]
+  parent <- ifelse(res$person_exposed[res$model==model & tolower(res$exposure_linker)==exp1 & tolower(res$outcome_linker)==out1]=="mother",
                    "mothers","partners")
-  if (grepl("active smok", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  if (grepl("active smok", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     name_exp <- "smoked"
-  } else if (grepl("passive smok", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("passive smok", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     name_exp <- "were exposed to passive smoke"
-  } else if (grepl("any drinking", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("any drinking", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     name_exp <- "drank alcohol"
-  } else if (grepl("binge", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("binge", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     name_exp <- "binged on alcohol"
-  } else if (grepl("any source", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("any source", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     name_exp <- "consumed caffeine"
-  } else if (grepl("basic", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("basic", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     name_exp <- "exercised"
-  } else  if (grepl("tea", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else  if (grepl("tea", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     name_exp <- "consumed caffeine from tea"
-  } else if (grepl("coffee", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("coffee", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     name_exp <- "consumed caffeine from coffee"
-  } else if (grepl("cola", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("cola", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     name_exp <- "consumed caffeine from cola"
-  } else if (grepl("education", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("education", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     name_exp <- "had a low social class (based on education)"
-  } else if (grepl("occupa", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("occupa", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     name_exp <- "had a low social class (based on occupation)"
   }
-  if (grepl("at study recruitment", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  if (grepl("at study recruitment", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     time_exp <- NA
-  } else if (grepl("early onset", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("early onset", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     time_exp <- "before age 12"
-  } else if (grepl("ever in life", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("ever in life", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     time_exp <- "at some point in their lives"
-  } else if (grepl("ever in pregnancy", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("ever in pregnancy", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     time_exp <- "at any point during pregnancy"
-  } else if (grepl("first trimester", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("first trimester", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     time_exp <- "in the first trimester of pregnancy"
-  } else if (grepl("second trime", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("second trime", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     time_exp <- "in the second trimester of pregnancy"
-  } else if (grepl("third trime", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("third trime", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     time_exp <- "in the third trimester of pregnancy"
-  } else if (grepl("first two", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("first two", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     time_exp <- "in the first two years after the baby's birth"
-  } else if (grepl("preconcep", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])) {
+  } else if (grepl("preconcep", res$exposure_time[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])) {
     time_exp <- "in the months before pregnancy"
   }
 
@@ -267,16 +267,16 @@ interpret <- function(res,out1,exp1,model){
     }
   }  
   
-  if(grepl("score", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])){
-   if(grepl("smok", res$exposure_class[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])){
+  if(grepl("score", res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])){
+   if(grepl("smok", res$exposure_class[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])){
    name_exp <-paste0("genetic risk score for smoking (",
-                     res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1],
+                     res$exposure_subclass[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1],
                      ")")
    }    
-     if(grepl("caff", res$exposure_class[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])){
+     if(grepl("caff", res$exposure_class[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])){
        name_exp <-"signif( risk score for caffeine consumption"
      }
-       if(grepl("alc", res$exposure_class[res$model == model & tolower(res$exposure_linker) == exp1 & res$outcome_linker == out1])){
+       if(grepl("alc", res$exposure_class[res$model == model & tolower(res$exposure_linker) == exp1 & tolower(res$outcome_linker) == out1])){
          name_exp <-"genetic risk score for alcohol consumption"
        }
      }
@@ -355,7 +355,7 @@ interpret <- function(res,out1,exp1,model){
   } 
   cohorts_described <-paste0(n_cohorts," cohort(s) contributed results to this finding: ",cohorts,".")
   if(n_cohorts>1){
-    het_described <- paste0("The I-squared value is ",signif(I2,3)," and the Q test heterogeneity P-value is ",signif(hetP,2),
+    het_described <- paste0("The I-squared value is ",signif(I2,3)," and the Q test heterogeneity P-value is ",ifelse(hetP<0.0009,scientific(hetP,2),ifelse(hetP<0.0009,scientific(hetP,2),signif(hetP,2))),
                             ". This means that an estimated ",signif(I2,3),
                             "% of the variation across studies is due to true heterogeneity (i.e. differences between the studies) rather than chance. The P-value can be interpreted as a measure of confidence in that assertion, with P<0.05 being a common threshold for accepting the hypothesis that different studies have different effects, and therefore variations in effect estimates between studies are NOT due to chance alone. High levels of heterogeneity (i.e. a large I-squared and a low Q-test P-value) mean that the meta-analysis effect estimate may be biased, because the assumptions of fixed effects meta-analysis are unlikely to have been met. ")
     
@@ -374,9 +374,11 @@ interpret <- function(res,out1,exp1,model){
 }
 
 
-create_triang_DFs <-function(df,expclass,parent,outc,dose=F,grs=F,time=F,sep=F,oe=F){
+create_triang_DFs <-function(df,expclass,parent,outc,outtime,dose=F,grs=F,time=F,sep=F,oe=F){
+  
   outctype <- tolower(df$outcome_type[tolower(df$outcome_subclass2)==tolower(outc)][1])
-  if(expclass=="smoking"){
+ 
+   if(expclass=="smoking"){
     expsubclass <- "active smoking"
     exptime <- "ever in pregnancy"
     exptype <-"binary"
@@ -466,6 +468,7 @@ create_triang_DFs <-function(df,expclass,parent,outc,dose=F,grs=F,time=F,sep=F,o
   if(sep==T){
   sep_df <- df[which(df$exposure_class %in% c(expclass, "low socioeconomic position") &
                        df$person_exposed==parent &
+                       df$outcome_time==outtime &
                        df$exposure_subclass %in% c(expsubclass,"low SEP (education)","low SEP (occupation)") &
                        df$exposure_type == "binary" &
                        tolower(df$outcome_subclass2)==tolower(outc)&
@@ -478,6 +481,7 @@ create_triang_DFs <-function(df,expclass,parent,outc,dose=F,grs=F,time=F,sep=F,o
   
   if(oe==T){
     sc_df <- df[which(df$exposure_class== expclass&
+                        df$outcome_time==outtime &
                         df$person_exposed==parent &
                         tolower(df$outcome_subclass2)==tolower(outc)&
                         df$outcome_type==outctype),]
@@ -496,6 +500,7 @@ create_triang_DFs <-function(df,expclass,parent,outc,dose=F,grs=F,time=F,sep=F,o
   
   bdf <- df[which(df$exposure_class==expclass &
                     df$exposure_subclass == expsubclass &
+                    df$outcome_time==outtime &
                     df$person_exposed %in% c("mother","partner") &
                     df$exposure_type == exptype &
                     tolower(tolower(df$outcome_subclass2))==tolower(outc)&

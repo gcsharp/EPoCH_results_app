@@ -6,6 +6,7 @@ library(shinyjs)
 library(shinyTree)
 library(RColorBrewer)
 library(stringr)
+library(scales)
 
 graph_colours = "Dark2"
 
@@ -30,16 +31,16 @@ plot_df_manhattan_p <- function(fig, df, x_data, label) {
                 color = as.character(df[[x_data]]),
                 marker = list(size = 6), alpha=0.5,
                 hoverinfo = "text",
-                text = paste0("<b>Exposure class:</b> ",df$exposure_class,
+                text = paste0("<br><b>Exposure class:</b> ",df$exposure_class,
                                "<br><b>Exposure type:</b> ",df$exposure_subclass_time_dose,
                                "<br><b>Outcome class:</b> ",df$outcome_class,
                                "<br><b>Outcome type:</b> ",df$outcome_subclass2_time,
                                "<br><b>Cohorts:</b> ",df$cohorts,
                                "<br><b>Parent Exposed:</b> ",df$person_exposed,
                                "<br><b>Total N:</b> ",df$total_n,
-                              "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",df$est,"N/A"),
-                              "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",exp(df$est),"N/A"),
-                              "<br><b>Cohens D:</b> ",df$est_SDM,
+                              "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                              "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                              "<br><b>Cohens D:</b> ",signif(df$est_SDM,3),
                                 "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                 showlegend = FALSE)
 }
@@ -50,16 +51,16 @@ plot_df_manhattan_c <- function(fig, df, x_data, label) {
                 color = as.character(df[[x_data]]),
                 marker = list(size = 6), alpha=0.5,
                 hoverinfo = "text",
-                text = paste0("<b>Exposure class:</b> ",df$exposure_class,
+                text = paste0("<br><b>Exposure class:</b> ",df$exposure_class,
                               "<br><b>Exposure type:</b> ",df$exposure_subclass_time_dose,
                               "<br><b>Outcome class:</b> ",df$outcome_class,
                               "<br><b>Outcome type:</b> ",df$outcome_subclass2_time,
                               "<br><b>Cohorts:</b> ",df$cohorts,
                               "<br><b>Parent Exposed:</b> ",df$person_exposed,
                               "<br><b>Total N:</b> ",df$total_n,
-                              "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",df$est,"N/A"),
-                              "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",exp(df$est),"N/A"),
-                              "<br><b>Cohens D:</b> ",df$est_SDM,
+                              "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                              "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                              "<br><b>Cohens D:</b> ",signif(df$est_SDM,3),
                               "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                 showlegend = FALSE)
 }
@@ -118,16 +119,16 @@ create_volcano_plot <- function(df,ranked) {
       add_markers(x = ~est_SDM,y = ~-log10(p), color = ~exposure_subclass,
                   marker = list(size = 6), alpha=0.5,
                   hoverinfo = "text",
-                  text = ~paste0("<b>Exposure class:</b> ",exposure_class,
+                  text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
                                  "<br><b>Exposure type:</b> ",exposure_subclass_time_dose,
                                  "<br><b>Outcome class:</b> ",outcome_class,
                                  "<br><b>Outcome type:</b> ",outcome_subclass_time,
                                  "<br><b>Cohorts:</b> ",cohorts,
                                  "<br><b>Total N:</b> ",total_n,
-                                 "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",df$est,"N/A"),
-                                 "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",exp(df$est),"N/A"),
-                                 "<br><b>Cohens D:</b> ",df$est_SDM,
-                                 "<br><b>P value:</b> ",p),
+                                 "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                                 "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                                 "<br><b>Cohens D:</b> ",signif(df$est_SDM,3),
+                                 "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                   showlegend = FALSE) %>%
       add_annotations(text = ttext,
                       x = 0.5,
@@ -150,16 +151,16 @@ create_volcano_plot <- function(df,ranked) {
       add_markers(x = ~est_SDM,y = ~p_rank, color = ~exposure_subclass,
                   marker = list(size = 6), alpha=0.5,
                   hoverinfo = "text",
-                  text = ~paste0("<b>Exposure class:</b> ",exposure_class,
+                  text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
                                  "<br><b>Exposure type:</b> ",exposure_subclass_time_dose,
                                  "<br><b>Outcome class:</b> ",outcome_class,
                                  "<br><b>Outcome type:</b> ",outcome_subclass_time,
                                  "<br><b>Cohorts:</b> ",cohorts,
                                  "<br><b>Total N:</b> ",total_n,
-                                 "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",df$est,"N/A"),
-                                 "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",exp(df$est),"N/A"),
-                                 "<br><b>Cohens D:</b> ",df$est_SDM,
-                                 "<br><b>P value:</b> ",p),
+                                 "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                                 "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                                 "<br><b>Cohens D:</b> ",signif(df$est_SDM,3),
+                                 "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                   showlegend = FALSE) %>%
       add_annotations(text = ttext,
                       x = 0.5,
@@ -189,25 +190,25 @@ create_coeff_plot <- function(df, ydat, title,maxheight) {
                 type = "scatter",
                 mode = 'markers',
                 hoverinfo = "text",
-                text = ~paste0("<b>Exposure class:</b> ",exposure_class,
+                text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
                                "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                                "<br><b>Cohorts:</b> ",cohorts,
                                "<br><b>Total N:</b> ",total_n,
                                "<br><b>Odds ratio:</b> ",exp(est),
                                "<br><b>Upper 95%CI:</b> ",or_uci,
                                "<br><b>Lower 95% CI:</b> ",or_lci,
-                               "<br><b>P value:</b> ",p),
+                               "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                 showlegend = FALSE) %>%
       add_segments(x=~or_lci,xend=~or_uci,y=~outcome_subclass2_time,yend =~outcome_subclass2_time,color="#7570b3",
                    hoverinfo = "text",
-                   text = ~paste0("<b>Exposure class:</b> ",exposure_class,
+                   text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
                                   "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                                   "<br><b>Cohorts:</b> ",cohorts,
                                   "<br><b>Total N:</b> ",total_n,
                                   "<br><b>Odds ratio:</b> ",exp(est),
                                   "<br><b>Upper 95%CI:</b> ",or_uci,
                                   "<br><b>Lower 95% CI:</b> ",or_lci,
-                                  "<br><b>P value:</b> ",p),
+                                  "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                    showlegend = FALSE)  %>%
       add_annotations(text = str_to_sentence(title), font = list(size=10), bgcolor="white",
                       x = x_origin, y = maxheight+4,
@@ -231,25 +232,29 @@ create_coeff_plot <- function(df, ydat, title,maxheight) {
                 type = "scatter",
                 mode = 'markers',
                 hoverinfo = "text",
-                text = ~paste0("<b>Exposure class:</b> ",exposure_class,
+                text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
                                "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                                "<br><b>Cohorts:</b> ",cohorts,
                                "<br><b>Total N:</b> ",total_n,
-                               "<br><b>Estimate:</b> ",est,
-                               "<br><b>Upper 95%CI:</b> ",uci,
-                               "<br><b>Lower 95% CI:</b> ",lci,
-                               "<br><b>p value:</b> ",p),
+                               "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                               "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                               "<br><b>Cohens D:</b> ",signif(df$est_SDM,3),
+                               "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                               "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                               "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                 showlegend = FALSE) %>%
       add_segments(x=~lci,xend=~uci,y=~outcome_subclass2_time,yend =~outcome_subclass2_time,color="#7570b3",
                    hoverinfo = "text",
-                   text = ~paste0("<b>Exposure class:</b> ",exposure_class,
+                   text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
                                   "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                                   "<br><b>Cohorts:</b> ",cohorts,
                                   "<br><b>Total N:</b> ",total_n,
-                                  "<br><b>Estimate:</b> ",est,
-                                  "<br><b>Upper 95%CI:</b> ",uci,
-                                  "<br><b>Lower 95% CI:</b> ",lci,
-                                  "<br><b>p value:</b> ",p),
+                                  "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                                  "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                                  "<br><b>Cohens D:</b> ",signif(df$est_SDM,3),
+                                  "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                                  "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                                  "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                    showlegend = FALSE) %>%
       add_annotations(text = str_to_sentence(title), font = list(size=10), bgcolor="white",
                       x = x_origin, y = maxheight+4,
@@ -266,35 +271,37 @@ create_coeff_plot <- function(df, ydat, title,maxheight) {
 }
   
   
-create_triangmvr_plot <-function(df,expclass,parent,outc){
-     res <- create_triang_DFs(df,expclass,parent,outc,dose=F)
+create_triangmvr_plot <-function(df,expclass,parent,outc,outtime,dose=F,grs=F,time=F,sep=F,oe=F){
+     res <- create_triang_DFs(df,expclass,parent,outc,outtime,dose=F,grs=F,time=F,sep=F,oe=F)
      df <- droplevels(res$df)
-    df$y <- paste0(df$outcome_subclass2_time," (",df$model,")")
-    df$outcome_time <- as.character(df$outcome_time)
+    df$y <- paste0(df$model,": ",df$modelnumber,", ",df$mutualadj)
+    df$modelnumber <- as.character(df$modelnumber)
     H <- nrow(df)*30
     nullvalue <- res$nullvalue
     xtitle <- res$xtitle
     
     df %>%
-      plot_ly(x = ~est,y = ~y, color=~outcome_time, type = "scatter",mode="markers",hoverinfo="text",height=H,
-              text = ~paste0("<b>Exposure class:</b> ",exposure_class,
+      plot_ly(x = ~est,y = ~y, color=~modelnumber, type = "scatter",mode="markers",hoverinfo="text",height=H,
+              text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
                              "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                              "<br><b>Cohorts:</b> ",cohorts,
                              "<br><b>Total N:</b> ",total_n,
-                             "<br><b>Estimate:</b> ",est,
-                             "<br><b>Upper 95%CI:</b> ",uci,
-                             "<br><b>Lower 95% CI:</b> ",lci,
-                             "<br><b>P value:</b> ",p),showlegend = FALSE) %>%
-      add_segments(x=~lci,xend=~uci,y=~y,yend =~y,color=~outcome_time,
+                             "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                             "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                             "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                             "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                             "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),showlegend = FALSE) %>%
+      add_segments(x=~lci,xend=~uci,y=~y,yend =~y,color=~modelnumber,
                    hoverinfo = "text",
-                   text = ~paste0("<b>Exposure class:</b> ",exposure_class,
+                   text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
                                   "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                                   "<br><b>Cohorts:</b> ",cohorts,
                                   "<br><b>Total N:</b> ",total_n,
-                                  "<br><b>Estimate:</b> ",est,
-                                  "<br><b>Upper 95%CI:</b> ",uci,
-                                  "<br><b>Lower 95% CI:</b> ",lci,
-                                  "<br><b>P value:</b> ",p),
+                                  "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                                  "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                                  "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                                  "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                                  "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                    showlegend = FALSE)  %>%
       layout(shapes = list(vline(nullvalue)),
              xaxis = list(title = xtitle,zeroline=F,
@@ -303,45 +310,51 @@ create_triangmvr_plot <-function(df,expclass,parent,outc){
       config(toImageButtonOptions = list(format = "png", scale = 5))
   }
   
-create_triangNC_plot <-function(df,expclass,parent,outc){
+create_triangNC_plot <-function(df,expclass,parent,outc,outtime,dose=F,grs=F,time=F,sep=F,oe=F){
   
-  res <- create_triang_DFs(df,expclass,parent,outc,dose=F)
+  res <- create_triang_DFs(df,expclass,parent,outc,outtime,dose=F,grs=F,time=F,sep=F,oe=F)
   
-  bdf <- droplevels(res$bdf)
-  bdf[order(bdf$outcome_subclass2_time,bdf$mutual_parent,bdf$model),]
-  bdf$y <- paste0(bdf$outcome_subclass2_time," (",bdf$mutual_parent,"; ",bdf$modelnumber,")")
+  bdf <- droplevels(res$bdf[res$bdf$model%in%c("model2a","model2b"),])
+  bdf <-bdf[order(bdf$person_exposed,bdf$model),]
+  bdf$y <- paste0(bdf$model," (",tolower(bdf$modelnumber),"): ",bdf$mutual_parent)
   bdf$y <-factor(bdf$y,ordered=T,levels=unique(bdf$y))
-  bdf$outcome_time <-as.character(bdf$outcome_time)
-  H <- nrow(bdf)*30
+  H <- nrow(bdf)*60
   nullvalue <- res$nullvalue
   xtitle <- res$xtitle
+  
+  pal <- c(rep(brewer.pal(4,"Set2")[1],2),rep(brewer.pal(3,"Set2")[3],2))
+  pal <- setNames(pal, c("mother (no mutual adj)", "mother (mutual adj)", "partner (no mutual adj)","partner (mutual adj)"))
 
   
-  if(nrow(bdf)!=0){
     bdf %>%
-      plot_ly(x = ~est,y = ~y, color=~person_exposed, type = "scatter",mode="markers",hoverinfo="text",height=H,
-              text = ~paste0("<b>Exposure class:</b> ",exposure_class,
+      plot_ly(x = ~est,y = ~y, color=~mutual_parent, type = "scatter",mode="markers",hoverinfo="text",height=H,
+              colors=pal,
+              text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
                              "<br><b>Model:</b> ",modelnumber,
                              "<br><b>Mutual adjustment:</b> ",mutual_parent,
                              "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                              "<br><b>Cohorts:</b> ",cohorts,
                              "<br><b>Total N:</b> ",total_n,
-                             "<br><b>Estimate:</b> ",est,
-                             "<br><b>Upper 95%CI:</b> ",uci,
-                             "<br><b>Lower 95% CI:</b> ",lci,
-                             "<br><b>P value:</b> ",p),showlegend = FALSE) %>%
-      add_segments(x=~lci,xend=~uci,y=~y,yend =~y,color=~person_exposed,
+                             "<br><b>Estimate:</b> ",ifelse(bdf$outcome_type=="continuous",signif(bdf$est,3),"N/A"),
+                             "<br><b>Odds Ratio:</b> ",ifelse(bdf$outcome_type=="binary",signif(exp(bdf$est),3),"N/A"),
+                             
+                             "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                             "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                             "<br><b>P value:</b> ",ifelse(bdf$p<0.0009,scientific(bdf$p,2),signif(bdf$p,2))),showlegend = FALSE) %>%
+      add_segments(x=~lci,xend=~uci,y=~y,yend =~y,color=~mutual_parent,colors=pal,
                    hoverinfo = "text",
-                   text = ~paste0("<b>Exposure class:</b> ",exposure_class,
+                   text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
                                   "<br><b>Model:</b> ",modelnumber,
                                   "<br><b>Mutual adjustment:</b> ",mutual_parent,
                                   "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                                   "<br><b>Cohorts:</b> ",cohorts,
                                   "<br><b>Total N:</b> ",total_n,
-                                  "<br><b>Estimate:</b> ",est,
-                                  "<br><b>Upper 95%CI:</b> ",uci,
-                                  "<br><b>Lower 95% CI:</b> ",lci,
-                                  "<br><b>P value:</b> ",p),
+                                  "<br><b>Estimate:</b> ",ifelse(bdf$outcome_type=="continuous",signif(bdf$est,3),"N/A"),
+                                  "<br><b>Odds Ratio:</b> ",ifelse(bdf$outcome_type=="binary",signif(exp(bdf$est),3),"N/A"),
+
+                                  "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                                  "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                                  "<br><b>P value:</b> ",ifelse(bdf$p<0.0009,scientific(bdf$p,2),signif(bdf$p,2))),
                    showlegend = FALSE)  %>%
       layout(shapes = list(vline(nullvalue)),
              xaxis = list(title = xtitle,zeroline=F,
@@ -349,48 +362,53 @@ create_triangNC_plot <-function(df,expclass,parent,outc){
              yaxis = list(title="")) %>%
       config(toImageButtonOptions = list(format = "png", scale = 5))
     
-  }else{
-    cat('<span style="color: #D95F02;">Sorry, there is insufficent data to generate the plot</span>')
-  }
+
 
 }
 
-create_triangDOSE_plot <-function(df,expclass,parent,outc){
-  res <- create_triang_DFs(df,expclass,parent,outc,dose=T)
+create_triangDOSE_plot <-function(df,expclass,parent,outc,outtime,dose=T,grs=F,time=F,sep=F,oe=F){
+  res <- create_triang_DFs(df,expclass,parent,outc,outtime,dose=T,grs=F,time=F,sep=F,oe=F)
   df <- droplevels(res$df)
-  df <- droplevels(df[df$model%in%(c("model2b","model3b")),]) # main model only, with and without 
-  df <- df[order(df$exposure_time,df$outcome_subclass2_time,df$exposure_dose,df$modelname),]
-  df$y <- paste0(df$exposure_dose, " exposure - ", df$exposure_time," on ", df$outcome_subclass2_time," (",df$model,")")
+  df <- droplevels(df[df$model%in%(c("model2b")),]) 
+  df <- df[order(df$modelname,df$exposure_time,df$exposure_dose),]
+  df$y <- paste0(df$model," (",tolower(df$modelnumber),", ",df$mutualadj,"): ",df$exposure_dose, " amount - ", df$exposure_time)
   df$y <-factor(df$y,ordered=T,levels=unique(df$y))
   df$exposure_dose <- as.character(df$exposure_dose)
   H <- nrow(df)*30
   nullvalue <- res$nullvalue
   xtitle <- res$xtitle
   
-  if(nrow(df)!=0){
+  pal <- brewer.pal(4,"BuPu")[2:4]
+  pal <- setNames(pal, c("light","moderate","heavy"))
+  
+
     
   df %>%
-    plot_ly(x = ~est,y = ~y, color=~exposure_dose, type = "scatter",mode="markers",hoverinfo="text",height=H,
-            text = ~paste0("<b>Exposure class:</b> ",exposure_class,
-                           "<b>Exposure dose:</b> ",exposure_dose,
+    plot_ly(x = ~est,y = ~y, color=~exposure_dose, type = "scatter",mode="markers",hoverinfo="text",height=H,colors=pal,
+            text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
+                           "<br><b>Exposure dose:</b> ",exposure_dose,
                            "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                            "<br><b>Cohorts:</b> ",cohorts,
                            "<br><b>Total N:</b> ",total_n,
-                           "<br><b>Estimate:</b> ",est,
-                           "<br><b>Upper 95%CI:</b> ",uci,
-                           "<br><b>Lower 95% CI:</b> ",lci,
-                           "<br><b>P value:</b> ",p),showlegend = FALSE) %>%
-    add_segments(x=~lci,xend=~uci,y=~y,yend =~y,color=~exposure_dose,
+                           "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                           "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                           
+                           "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                           "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                           "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),showlegend = FALSE) %>%
+    add_segments(x=~lci,xend=~uci,y=~y,yend =~y,color=~exposure_dose,colors=pal,
                  hoverinfo = "text",
-                 text = ~paste0("<b>Exposure class:</b> ",exposure_class,
-                                "<b>Exposure dose:</b> ",exposure_dose,
+                 text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
+                                "<br><b>Exposure dose:</b> ",exposure_dose,
                                 "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                                 "<br><b>Cohorts:</b> ",cohorts,
                                 "<br><b>Total N:</b> ",total_n,
-                                "<br><b>Estimate:</b> ",est,
-                                "<br><b>Upper 95%CI:</b> ",uci,
-                                "<br><b>Lower 95% CI:</b> ",lci,
-                                "<br><b>P value:</b> ",p),
+                                "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                                "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                                
+                                "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                                "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                                "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                  showlegend = FALSE)  %>%
     layout(shapes = list(vline(nullvalue)),
            xaxis = list(title = xtitle,zeroline=F,
@@ -398,46 +416,47 @@ create_triangDOSE_plot <-function(df,expclass,parent,outc){
            yaxis = list(title="")) %>%
     config(toImageButtonOptions = list(format = "png", scale = 5))
     
-  }else{
-    cat('<span style="color: #D95F02;">Sorry, there is insufficent data to generate the plot</span>')
-  }
+
 }
 
-create_triangTIME_plot <-function(df,expclass,parent,outc){
-  res <- create_triang_DFs(df,expclass,parent,outc,time=T)
+create_triangTIME_plot <-function(df,expclass,parent,outc,outtime,dose=F,grs=F,time=T,sep=F,oe=F){
+  res <- create_triang_DFs(df,expclass,parent,outc,outtime,dose=F,grs=F,time=T,sep=F,oe=F)
   df <- droplevels(res$df)
-  df <- df[order(df$exposure_time,df$outcome_subclass2_time,df$modelname),]
-  df$y <- paste0(" exposure time:", df$exposure_time,"; on ", df$outcome_subclass2_time," (",df$model,")")
+  df <- df[order(df$exposure_time,df$modelname),]
+  df$y <- paste0(df$model," (",tolower(df$modelnumber),"): ",df$exposure_time)
   df$y <-factor(df$y,ordered=T,levels=unique(df$y))
-  df$exposure_time <- as.character(df$exposure_time)
+  df$exposure_time2 <- as.character(df$exposure_time %in%c("preconception","first two postnatal years"))
   H <- nrow(df)*30
   nullvalue <- res$nullvalue
   xtitle <- res$xtitle
   
-  if(nrow(df)!=0){
-    
+
     df %>%
-      plot_ly(x = ~est,y = ~y, color=~exposure_time, type = "scatter",mode="markers",hoverinfo="text",height=H,
-              text = ~paste0("<b>Exposure class:</b> ",exposure_class,
-                             "<b>Exposure time:</b> ",exposure_time,
+      plot_ly(x = ~est,y = ~y, color=~exposure_time2, type = "scatter",mode="markers",hoverinfo="text",height=H,
+              text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
+                             "<br><b>Exposure time:</b> ",exposure_time,
                              "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                              "<br><b>Cohorts:</b> ",cohorts,
                              "<br><b>Total N:</b> ",total_n,
-                             "<br><b>Estimate:</b> ",est,
-                             "<br><b>Upper 95%CI:</b> ",uci,
-                             "<br><b>Lower 95% CI:</b> ",lci,
-                             "<br><b>P value:</b> ",p),showlegend = FALSE) %>%
-      add_segments(x=~lci,xend=~uci,y=~y,yend =~y,color=~exposure_time,
+                             "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                             "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                             
+                             "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                             "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                             "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),showlegend = FALSE) %>%
+      add_segments(x=~lci,xend=~uci,y=~y,yend =~y,color=~exposure_time2,
                    hoverinfo = "text",
-                   text = ~paste0("<b>Exposure class:</b> ",exposure_class,
-                                  "<b>Exposure time:</b> ",exposure_time,
+                   text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
+                                  "<br><b>Exposure time:</b> ",exposure_time,
                                   "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                                   "<br><b>Cohorts:</b> ",cohorts,
                                   "<br><b>Total N:</b> ",total_n,
-                                  "<br><b>Estimate:</b> ",est,
-                                  "<br><b>Upper 95%CI:</b> ",uci,
-                                  "<br><b>Lower 95% CI:</b> ",lci,
-                                  "<br><b>P value:</b> ",p),
+                                  "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                                  "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                                  
+                                  "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                                  "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                                  "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                    showlegend = FALSE)  %>%
       layout(shapes = list(vline(nullvalue)),
              xaxis = list(title = xtitle,zeroline=F,
@@ -445,155 +464,154 @@ create_triangTIME_plot <-function(df,expclass,parent,outc){
              yaxis = list(title="")) %>%
       config(toImageButtonOptions = list(format = "png", scale = 5))
     
-  }else{
-    cat('<span style="color: #D95F02;">Sorry, there is insufficent data to generate the plot</span>')
-  }
+
 }
 
-create_triangSEP_plot <-function(df,expclass,parent,outc){
-  res <- create_triang_DFs(df,expclass,parent,outc,sep=T)
+create_triangSEP_plot <-function(df,expclass,parent,outc,outtime,dose=F,grs=F,time=F,sep=T,oe=F){
+  res <- create_triang_DFs(df,expclass,parent,outc,outtime,dose=F,grs=F,time=F,sep=T,oe=F)
   df <- droplevels(res$sep_df)
-  df <- df[order(df$exposure_class,df$exposure_time_sep,df$outcome_subclass2_time),]
-  df$y <- paste0(df$exposure_time_sep," on ", df$outcome_subclass2_time)
+  df <- df[order(df$exposure_class,df$exposure_time_sep),]
+  df$y <- paste0(df$model," (",tolower(df$modelnumber),"): ",df$exposure_time_sep)
   df$y <-factor(df$y,ordered=T,levels=unique(df$y))
   df$exposure_class <- as.character(df$exposure_class)
   H <- nrow(df)*30
   nullvalue <- res$nullvalue
   xtitle <- res$xtitle
   
-  if("low socioeconomic position"%in%df$exposure_class==T){
     
     df %>%
       plot_ly(x = ~est,y = ~y, color=~exposure_class, type = "scatter",mode="markers",hoverinfo="text",height=H,
-              text = ~paste0("<b>Exposure class:</b> ",exposure_class,
-                             "<b>Exposure subclass:</b> ",exposure_subclass,
-                             "<b>Exposure time:</b> ",exposure_time,
+              text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
+                             "<br><b>Exposure subclass:</b> ",exposure_subclass,
+                             "<br><b>Exposure time:</b> ",exposure_time,
                              "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                              "<br><b>Cohorts:</b> ",cohorts,
                              "<br><b>Total N:</b> ",total_n,
-                             "<br><b>Estimate:</b> ",est,
-                             "<br><b>Upper 95%CI:</b> ",uci,
-                             "<br><b>Lower 95% CI:</b> ",lci,
-                             "<br><b>P value:</b> ",p),showlegend = FALSE) %>%
+                             "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                             "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                             
+                             "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                             "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                             "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),showlegend = FALSE) %>%
       add_segments(x=~lci,xend=~uci,y=~y,yend =~y,color=~exposure_class,
                    hoverinfo = "text",
-                   text = ~paste0("<b>Exposure class:</b> ",exposure_class,
-                                  "<b>Exposure subclass:</b> ",exposure_subclass,
-                                  "<b>Exposure time:</b> ",exposure_time,
+                   text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
+                                  "<br><b>Exposure subclass:</b> ",exposure_subclass,
+                                  "<br><b>Exposure time:</b> ",exposure_time,
                                   "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                                   "<br><b>Cohorts:</b> ",cohorts,
                                   "<br><b>Total N:</b> ",total_n,
-                                  "<br><b>Estimate:</b> ",est,
-                                  "<br><b>Upper 95%CI:</b> ",uci,
-                                  "<br><b>Lower 95% CI:</b> ",lci,
-                                  "<br><b>P value:</b> ",p),
+                                  "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                                  "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                                  
+                                  "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                                  "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                                  "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                    showlegend = FALSE)  %>%
       layout(shapes = list(vline(nullvalue)),
              xaxis = list(title = xtitle,zeroline=F,
                           range=range(c(min(df$lci)-0.001,max(df$uci)+0.001,nullvalue))),
              yaxis = list(title="")) %>%
       config(toImageButtonOptions = list(format = "png", scale = 5))
-    
-  }else{
-    cat('<span style="color: #D95F02;">Sorry, there is insufficent data to generate the plot</span>')
-  }
+
 }
 
-create_triangOE_plot <-function(df,expclass,parent,outc){
-  res <- create_triang_DFs(df,expclass,parent,outc,oe=T)
+create_triangOE_plot <-function(df,expclass,parent,outc,outtime,dose=F,grs=F,time=F,sep=F,oe=T){
+  res <- create_triang_DFs(df,expclass,parent,outc,outtime,dose=F,grs=F,time=F,sep=F,oe=T)
   df <- droplevels(res$sc_df)
-  df <- df[order(df$exposure_subclass,df$exposure_time,df$exposure_dose2,df$outcome_subclass2_time),]
-  df$y <- paste0(df$exposure_subclass," - ",df$exposure_time," on ", df$outcome_subclass2_time)
+  df <- df[order(df$exposure_subclass,df$exposure_time,df$exposure_dose2),]
+  df$y <- paste0(df$model," (",tolower(df$modelnumber),"): ",df$exposure_subclass,", ",df$exposure_time)
   df$y <-factor(df$y,ordered=T,levels=unique(df$y))
   df$exposure_subclass <- as.character(df$exposure_subclass)
   H <- nrow(df)*30
   nullvalue <- res$nullvalue
   xtitle <- res$xtitle
+  if(any(c("passive smoke exposure",'binge drinking',"coffee","tea","cola")%in%df$exposure_subclass)){
+    df <- df }else{
+      df <-0
+}
 
-  
-  if(length(unique(df$exposure_subclass))>1){
-    
     df %>%
       plot_ly(x = ~est,y = ~y, color=~exposure_subclass, type = "scatter",mode="markers",hoverinfo="text",height=H,
-              text = ~paste0("<b>Exposure class:</b> ",exposure_class,
-                             "<b>Exposure subclass:</b> ",exposure_subclass,
-                             "<b>Exposure time:</b> ",exposure_time,
+              text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
+                             "<br><b>Exposure subclass:</b> ",exposure_subclass,
+                             "<br><b>Exposure time:</b> ",exposure_time,
                              "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                              "<br><b>Cohorts:</b> ",cohorts,
                              "<br><b>Total N:</b> ",total_n,
-                             "<br><b>Estimate:</b> ",est,
-                             "<br><b>Upper 95%CI:</b> ",uci,
-                             "<br><b>Lower 95% CI:</b> ",lci,
-                             "<br><b>P value:</b> ",p),showlegend = FALSE) %>%
+                             "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                             "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                             
+                             "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                             "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                             "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),showlegend = FALSE) %>%
       add_segments(x=~lci,xend=~uci,y=~y,yend =~y,color=~exposure_subclass,
                    hoverinfo = "text",
-                   text = ~paste0("<b>Exposure class:</b> ",exposure_class,
-                                  "<b>Exposure subclass:</b> ",exposure_subclass,
-                                  "<b>Exposure time:</b> ",exposure_time,
+                   text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
+                                  "<br><b>Exposure subclass:</b> ",exposure_subclass,
+                                  "<br><b>Exposure time:</b> ",exposure_time,
                                   "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                                   "<br><b>Cohorts:</b> ",cohorts,
                                   "<br><b>Total N:</b> ",total_n,
-                                  "<br><b>Estimate:</b> ",est,
-                                  "<br><b>Upper 95%CI:</b> ",uci,
-                                  "<br><b>Lower 95% CI:</b> ",lci,
-                                  "<br><b>P value:</b> ",p),
+                                  "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                                  "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                                  
+                                  "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                                  "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                                  "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                    showlegend = FALSE)  %>%
       layout(shapes = list(vline(nullvalue)),
              xaxis = list(title = xtitle,zeroline=F,
                           range=range(c(min(df$lci)-0.001,max(df$uci)+0.001,nullvalue))),
              yaxis = list(title="")) %>%
       config(toImageButtonOptions = list(format = "png", scale = 5))
-    
-  }else{
-    cat('<span style="color: #D95F02;">Sorry, there is insufficent data to generate the plot</span>')
-  }
+
 }
 
-create_triangGRS_plot <-function(df,expclass,parent,outc){
-  res <- create_triang_DFs(df,expclass,parent,outc,dose=F,grs=T)
+create_triangGRS_plot <-function(df,expclass,parent,outc,outtime,dose=F,grs=T,time=F,sep=F,oe=F){
+  res <- create_triang_DFs(df,expclass,parent,outc,outtime,dose=F,grs=T,time=F,sep=F,oe=F)
   df <- droplevels(res$df)
   df <- df[order(df$exposure_time,df$outcome_subclass2_time,df$mutual_model_grs),]
-  df$y <- paste0("GRS: ", df$exposure_time,"; on ", df$outcome_subclass2_time," (",df$model,")")
+  df$y <- paste0(df$model," (",tolower(df$mutual_model_grs),"): ",df$exposure_time," grs")
   df$y <-factor(df$y,ordered=T,levels=unique(df$y))
-  df$outcome_time <- as.character(df$outcome_time)
+  df$modelnumber <- as.character(df$modelnumber)
   H <- nrow(df)*30
   nullvalue <- res$nullvalue
   xtitle <- res$xtitle
-  
-  if(nrow(df)!=0){
     
     df %>%
-      plot_ly(x = ~est,y = ~y, color=~outcome_time, type = "scatter",mode="markers",hoverinfo="text",height=H,
-              text = ~paste0("<b>Exposure class:</b> ",exposure_class,
+      plot_ly(x = ~est,y = ~y, color=~modelnumber, type = "scatter",mode="markers",hoverinfo="text",height=H,
+              text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
                              "<br><b>GRS for:</b> ",exposure_time,
                              "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                              "<br><b>Cohorts:</b> ",cohorts,
                              "<br><b>Total N:</b> ",total_n,
-                             "<br><b>Estimate:</b> ",est,
-                             "<br><b>Upper 95%CI:</b> ",uci,
-                             "<br><b>Lower 95% CI:</b> ",lci,
-                             "<br><b>P value:</b> ",p),showlegend = FALSE) %>%
-      add_segments(x=~lci,xend=~uci,y=~y,yend =~y,color=~outcome_time,
+                             "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                             "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                             
+                             "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                             "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                             "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),showlegend = FALSE) %>%
+      add_segments(x=~lci,xend=~uci,y=~y,yend =~y,color=~modelnumber,
                    hoverinfo = "text",
-                   text = ~paste0("<b>Exposure class:</b> ",exposure_class,
+                   text = ~paste0("<br><b>Exposure class:</b> ",exposure_class,
                                   "<br><b>GRS for:</b> ",exposure_time,
                                   "<br><b>Outcome subclass:</b> ",outcome_subclass2_time,
                                   "<br><b>Cohorts:</b> ",cohorts,
                                   "<br><b>Total N:</b> ",total_n,
-                                  "<br><b>Estimate:</b> ",est,
-                                  "<br><b>Upper 95%CI:</b> ",uci,
-                                  "<br><b>Lower 95% CI:</b> ",lci,
-                                  "<br><b>P value:</b> ",p),
+                                  "<br><b>Estimate:</b> ",ifelse(df$outcome_type=="continuous",signif(df$est,3),"N/A"),
+                                  "<br><b>Odds Ratio:</b> ",ifelse(df$outcome_type=="binary",signif(exp(df$est),3),"N/A"),
+                                  
+                                  "<br><b>Upper 95%CI:</b> ",signif(uci,3),
+                                  "<br><b>Lower 95%CI:</b> ",signif(lci,3),
+                                  "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                    showlegend = FALSE)  %>%
       layout(shapes = list(vline(nullvalue)),
              xaxis = list(title = xtitle,zeroline=F,
                           range=range(c(min(df$lci)-0.001,max(df$uci)+0.001,nullvalue))),
              yaxis = list(title="")) %>%
       config(toImageButtonOptions = list(format = "png", scale = 5))
-    
-  }else{
-    cat('<span style="color: #D95F02;">Sorry, there is insufficent data to generate the plot</span>')
-  }
+
 }
 
 create_forest_plot <- function(df) {
@@ -601,8 +619,8 @@ create_forest_plot <- function(df) {
   if (all(df$binary)) {
     xtitle <- "Odds Ratio"
     x_origin = 1
-    df<-df[,c("cohort","or","point_size","point_symbol","n","p","or_uci","or_lci")]
-    colnames(df) <- c("cohort","est","point_size","point_symbol","n","p","uci","lci")
+    df<-df[,c("cohort","or","point_size","point_symbol","n","p","or_uci","or_lci","binary")]
+    colnames(df) <- c("cohort","est","point_size","point_symbol","n","p","uci","lci","binary")
     x_range <- c(min(df$lci)-0.001,max(df$uci)+0.001)
   } else {
     xtitle <- "Std Dev. Difference"
@@ -615,17 +633,19 @@ create_forest_plot <- function(df) {
                 fill = ~cohort=="meta", size = ~point_size, symbol= ~point_symbol,
                 type = "scatter", mode="markers", symbols=c("diamond","square"), hoverinfo = "text", opacity=1,
                 text = paste0("<br><b>Sample size:</b> ",df$n,
-                              "<br><b>Estimate:</b> ",df$est,
-                              "<br><b>Upper 95% CI:</b> ",df$uci,
-                              "<br><b>Lower 95% CI:</b> ",df$lci,
+                              "<br><b>Estimate:</b> ",ifelse(df$binary==F,signif(df$est,3),"N/A"),
+                              "<br><b>Odds Ratio:</b> ",ifelse(df$binary==T,signif(df$est,3),"N/A"),
+                              "<br><b>Upper 95% CI:</b> ",signif(df$uci,3),
+                              "<br><b>Lower 95% CI:</b> ",signif(df$lci,3),
                               "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                 showlegend = FALSE) %>%
       add_segments(x=~lci,xend=~uci,y=~cohort,yend =~cohort, color_discrete_sequence="goldenrod",
                    type = "scatter", mode="lines", hoverinfo = "text",
                    text = paste0("<br><b>Sample size:</b> ",df$n,
-                                 "<br><b>Estimate:</b> ",df$est,
-                                 "<br><b>Upper 95% CI:</b> ",df$uci,
-                                 "<br><b>Lower 95% CI:</b> ",df$lci,
+                                 "<br><b>Estimate:</b> ",ifelse(df$binary==F,signif(df$est,3),"N/A"),
+                                 "<br><b>Odds Ratio:</b> ",ifelse(df$binary==T,signif(df$est,3),"N/A"),
+                                 "<br><b>Upper 95% CI:</b> ",signif(df$uci,3),
+                                 "<br><b>Lower 95% CI:</b> ",signif(df$lci,3),
                                  "<br><b>P value:</b> ",ifelse(df$p<0.0009,scientific(df$p,2),signif(df$p,2))),
                    showlegend = FALSE) %>%
       layout(shapes = list(vline(x_origin)),
@@ -656,7 +676,16 @@ create_triangsum_plot <- function(df) {
 }
 
 
-
+create_null_plotly <-function(){
+  a <- list(
+    text = "Insufficient data to create plot",
+    showarrow=F,
+    font = list(size = 20))
+  P <-plotly_empty(type = 'scatter',
+                   mode = 'text')
+  P %>% layout(annotations = a) %>%
+    config(toImageButtonOptions = list(format = "png", scale = 5))
+}
 
 
 

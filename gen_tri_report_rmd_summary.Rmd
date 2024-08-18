@@ -21,9 +21,11 @@ triang_sum <- global_data$triangulation_summaries$triangulation_pregnancy
 expclass <- tolower(input$exposure_class_tri)
 parent <- tolower(input$exposure_person_tri)
 outc <- tolower(input$outcome_subclass2_tri)
+outtime <- tolower(input$outcome_time_tri)
 
 triang_sum <- droplevels(triang_sum[(tolower(triang_sum$exposure)==expclass)&
                                             (tolower(triang_sum$outcome_subclass2)==outc)&
+                                      (grepl(tolower(triang_sum$outcome_subclass),pattern=outtime))&
                                             (tolower(triang_sum$parent)==parent),])
 triang_res <- as.character(min(triang_sum$value[grepl("of evidence",triang_sum$value)]))
 

@@ -377,6 +377,20 @@ observeEvent(input$add_comp,{
                          )),
                          selected = '----------')
   })
+    
+    observeEvent(input$outcome_subclass2_tri,{
+      tri_dat <- global_data$data$all_res
+      updateSelectizeInput(session, inputId = "outcome_time_tri",
+                           choices = unique(str_to_sentence(
+                             tri_dat$outcome_time[tri_dat$exposure_time %in% c("ever in pregnancy", "first trimester","second trimester", "third trimester")&
+                                                         tri_dat$exposure_class==tolower(input$exposure_class_tri)&
+                                                         tri_dat$person_exposed==tolower(input$exposure_person_tri)&
+                                                         tri_dat$outcome_class==tolower(input$outcome_class_tri)&
+                                                         tolower(tri_dat$outcome_subclass1)==tolower(input$outcome_subclass1_tri)&
+                                                    tolower(tri_dat$outcome_subclass2)==tolower(input$outcome_subclass2_tri)]
+                           )),
+                           selected = '----------')
+  })
   
 
 # Forest plot data organisation
@@ -434,9 +448,9 @@ observeEvent(input$forest_explink,{
 observeEvent(input$outcome_choice_forest,{
   forest_dat <- global_data$data$all_res
   updateSelectizeInput(session, inputId = "forest_outcometype",
-                       choices = unique(str_to_sentence(
+                       choices = unique(
                          forest_dat$outcome_subclass1[tolower(forest_dat$exposure_linker)==tolower(input$forest_explink)&
-                                                        forest_dat$outcome_class==tolower(input$outcome_choice_forest)])),
+                                                        tolower(forest_dat$outcome_class)==tolower(input$outcome_choice_forest)]),
                        selected = '----------')
 })
 
@@ -447,7 +461,7 @@ observeEvent(input$forest_outcometype,{
                        choices = unique(str_to_sentence(
     forest_dat$outcome_linker[tolower(forest_dat$exposure_linker)==tolower(input$forest_explink)&
                                  forest_dat$outcome_class==tolower(input$outcome_choice_forest)&
-                                 forest_dat$outcome_subclass1==tolower(input$forest_outcometype)]
+                                 tolower(forest_dat$outcome_subclass1)==tolower(input$forest_outcometype)]
                                        )),
                        selected = "Please select an option"
                               )
@@ -459,7 +473,7 @@ observeEvent(input$forest_outlink,{
                        choices = unique(
                            global_data$df_models$name[tolower(global_data$df_models$shortname) %in%
                          tolower(forest_dat$model[tolower(forest_dat$exposure_linker)==tolower(input$forest_explink)&
-                                                     forest_dat$outcome_linker==tolower(input$forest_outlink) ])
+                                                     tolower(forest_dat$outcome_linker)==tolower(input$forest_outlink) ])
                            ]
                        ),
                        selected = unique(

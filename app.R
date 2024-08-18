@@ -1,9 +1,9 @@
 ## TO DO:
+## change terminology to "parental comparison" and "timing comparison" as both are negative controls
+## why do so many of the results have I2==0? Even when there's more than one cohort
 ## remove 3b results if same as 2b results
-## in CI report, caffeiene exposure type is continuous - what is it in the triangulation summary script? - it's either 
-## check data and coding for asthma and eczema - negative assoc with smoking - it's just in moba I think
+## in CI report, caffeine exposure type is continuous - what is it in the triangulation summary script? - it's either 
 ## tidy cohort summary data for MoBa (regenerate it as a tableone and then follow make table one script)
-## re-run table ones for ALSPAC and BiB (and MoBa?) after multiple pregnancies removed
 # coef plot issues:
     ## coef put all subplots on same axis range
    ## consider adding another tab under coef plot for coef plots by outcome
@@ -11,11 +11,13 @@
     ## put on drop downs for everything, same as for coeff
     ## plot takes ages to load
 # triangulation tab
+## sort out colours and for GRS sort out the y axis which currently has time but should be GRS type
 ## need to add an error message when the plot can't be drawn due to insufficient data (e.g. partner smoking fmi grs and other exposures)
-## consider adding another drop down for timing of outcome as plots look too busy and patterns are hard to extract otherwise
 ## crashing for hdl cholesterol and insulin as outc, partner/mother smoking as exp (maybe something to do with letter case) - check this is resolved?
 
 ## DONE:
+## consider adding another drop down for timing of outcome as plots look too busy and patterns are hard to extract otherwise
+## check data and coding for asthma and eczema - negative assoc with smoking - it's just in moba I think
 ## verbal summary of odds ratio - rounded a bit too far, e.g. an OR or 0.85 is summarised as a 10% lower odds
 ## Depressive symptoms should be under outcome subclass 1 behaviour and affect? Currently have their own subclass 1
 ## runs locally but not in published version - something to do with triang summaries (perhaps not read/stored correctly?)
@@ -453,8 +455,14 @@ tabPanel("Causal inference report", icon = icon("fa-solid fa-file"),
                                    label = NULL,
                                    choices = NULL,
                                    selected = NULL,
-                                   options = list(placeholder = 'Subclass 2', maxItems = 1))
+                                   options = list(placeholder = 'Subclass 2', maxItems = 1)),
+                    selectizeInput(inputId = "outcome_time_tri",
+                                   label = NULL,
+                                   choices = NULL,
+                                   selected = NULL,
+                                   options = list(placeholder = 'Time', maxItems = 1))
                   ),
+                  
                   actionButton("gen_tri_report","Triangulate evidence",icon=icon("chart-simple"))),
            fluidRow(
              column(12,align="left",
