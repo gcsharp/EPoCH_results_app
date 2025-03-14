@@ -1,4 +1,6 @@
 ## TO DO:
+## change terminology around ASD risk
+## Sup file containing tableones - includes some NAs, and some with cell size <5 (eg moba heavy drinking in pregnancy)
 ## change terminology to "parental comparison" and "timing comparison" as both are negative controls
 ## why do so many of the results have I2==0? Even when there's more than one cohort
 ## remove 3b results if same as 2b results
@@ -488,14 +490,14 @@ tabPanel("Causal inference report", icon = icon("fa-solid fa-file"),
                                withSpinner(plotlyOutput("triangDOSEplot"),image = "spinner.gif")
                         )
                       )),
-             tabPanel(title = "Negative control exposure (N)",id="negcon",
+             tabPanel(title = "Parent negative control comparison (N)",id="negcon",
                       fluidRow(
                         column(12,align="left",
                                withSpinner(uiOutput(outputId = "tri_report_negcon",style="text-align: left;"),image="spinner.gif"),
                                withSpinner(plotlyOutput("triangNCplot"),image = "spinner.gif")
                         )
                       )),
-             tabPanel(title = "Timing (P)",id="timing",
+             tabPanel(title = "Postnatal negative control comparison (P)",id="timing",
                       fluidRow(
                         column(12,align="left",
                                withSpinner(uiOutput(outputId = "tri_report_timing",style="text-align: left;"),image="spinner.gif"),

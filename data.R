@@ -473,7 +473,7 @@ create_triang_DFs <-function(df,expclass,parent,outc,outtime,dose=F,grs=F,time=F
                        df$exposure_type == "binary" &
                        tolower(df$outcome_subclass2)==tolower(outc)&
                        df$outcome_type==outctype),]
-  sep_df <- droplevels(sep_df[-grep("FEMALE|MALE|2a|3a|4a|1b|2b|3b|4b",sep_df$model),])
+  sep_df <- droplevels(sep_df[-grep("FEMALE|MALE|1a|3a|4a|1b|2b|3b|4b",sep_df$model),])
   }else{
     sep_df <- NULL
   }
