@@ -116,21 +116,21 @@ if(outctype=="continuous"){
 
 This report provides evidence from the following types of analysis (depending on data availability):
 
--   [Multivariable regression of the exposure any time in pregnancy]
+-   Multivariable regression of the exposure any time in pregnancy
 
--   [Maternal vs partner comparisons]
+-   Maternal vs partner comparisons (parental comparison negative control)
 
--   [Genetic risk scores]
+-   Mendelian randomization (genetic risk scores)
 
--   [Temporal specificity (timing of exposure)](#temporal-specificity-timing-of-exposure)
+-   Temporal specificity (postnatal negative control)
 
--   [Dose-response]
+-   Dose-response
 
 This report also gives a little more information to provide further help in interpreting relationships. This further information will not necessarily tell us anything more about causality, but it can help us understand and contextualise the findings.
 
--   [Different exposure definitions]
+-   Different exposure definitions
 
--   [Comparison to socioeconomic position]
+-   Comparison to socioeconomic position
 
 ## The relationship of interest
 

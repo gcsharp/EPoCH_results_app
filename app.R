@@ -1,23 +1,23 @@
 ## TO DO:
-## change terminology around ASD risk
-## Sup file containing tableones - includes some NAs, and some with cell size <5 (eg moba heavy drinking in pregnancy)
-## change terminology to "parental comparison" and "timing comparison" as both are negative controls
+
 ## why do so many of the results have I2==0? Even when there's more than one cohort
-## remove 3b results if same as 2b results
 ## in CI report, caffeine exposure type is continuous - what is it in the triangulation summary script? - it's either 
-## tidy cohort summary data for MoBa (regenerate it as a tableone and then follow make table one script)
 # coef plot issues:
-    ## coef put all subplots on same axis range
-   ## consider adding another tab under coef plot for coef plots by outcome
+    ## coef put all subplots on same axis range - HAVE TRIED MULTIPLE OPTIONS BUT CAN'T MAKE IT WORK, SO PUT ON HOLD
+   ## consider adding another tab under coef plot for coef plots by outcome - SO MUCH EXTRA WORK FOR LITTLE GAIN, SO SHELVED FOR NOW
 # forest tab
     ## put on drop downs for everything, same as for coeff
     ## plot takes ages to load
+
+## DONE:
+## remove 3b results if same as 2b results
 # triangulation tab
+## change terminology to "parental comparison" and "timing comparison" as both are negative controls
 ## sort out colours and for GRS sort out the y axis which currently has time but should be GRS type
 ## need to add an error message when the plot can't be drawn due to insufficient data (e.g. partner smoking fmi grs and other exposures)
 ## crashing for hdl cholesterol and insulin as outc, partner/mother smoking as exp (maybe something to do with letter case) - check this is resolved?
-
-## DONE:
+## Sup file containing tableones - includes some NAs, and some with cell size <5 (eg moba heavy drinking in pregnancy)
+## change terminology around ASD risk
 ## consider adding another drop down for timing of outcome as plots look too busy and patterns are hard to extract otherwise
 ## check data and coding for asthma and eczema - negative assoc with smoking - it's just in moba I think
 ## verbal summary of odds ratio - rounded a bit too far, e.g. an OR or 0.85 is summarised as a 10% lower odds
@@ -139,21 +139,21 @@ ui <- function(request) {
                        tabsetPanel(
                        tabPanel(title="ALSPAC",id="alspac",
                                 br(),
-                                img(src='alspac-logo.jpeg', style='width: 20%; display: block; margin-left: auto; margin-right: auto;'),
+                                img(src='alspac-logo.jpeg', style='width: 10%; display: block; margin-left: auto; margin-right: auto;'),
                                 br(),
                                 p(HTML("<p>The Avon Longitudinal Study of Parents and Children (ALSPAC) is a longitudinal birth cohort study based in Bristol (UK) and the surrounding areas. Pregnant women resident in the area with expected dates of delivery between 1st April 1991 and 31st December 1992 were invited to take part in the study.  Click to see the <a href='https://pubmed.ncbi.nlm.nih.gov/22507742/'>cohort profile for the mothers</a> and the <a href='https://pubmed.ncbi.nlm.nih.gov/22507742/'>children.</a></p>")),
                        DTOutput("alspactable")
                        ),
                        tabPanel(title="BIB",id="bib",
                                 br(),
-                                img(src='bib-logo.png', style='width: 80%; display: block; margin-left: auto; margin-right: auto;'),
+                                img(src='bib-logo.png', style='width: 40%; display: block; margin-left: auto; margin-right: auto;'),
                                 br(),
                                 p(HTML("<p>Born in Bradford (BIB) was established to examine how genetic, nutritional, environmental, behavioural and social factors impact on health and development during childhood, and subsequently adult life in a deprived multi-ethnic population. Between 2007 and 2011, detailed information has been collected from 12453 women with 13776 pregnancies (recruited at ∼28 weeks) and 3448 of their partners. Click to see the <a href='https://pubmed.ncbi.nlm.nih.gov/23064411/'>cohort profile</a>.</p>")),
                                 DTOutput("bibtable")
                        ),
                        tabPanel(title="MCS",id="mcs",
                                 br(),
-                                img(src='mcs-logo.png', style='width: 80%; display: block; margin-left: auto; margin-right: auto;'),
+                                img(src='mcs-logo.png', style='width: 60%; display: block; margin-left: auto; margin-right: auto;'),
                                 br(),
                                 p(HTML("<p>The Millenium Cohort Study (MCS) is following the lives of 19,517 children born across the UK in 2000-01. Click to see the <a href='https://pubmed.ncbi.nlm.nih.gov/24550246/'>cohort profile</a>. </p>")),
                                 DTOutput("mcstable")
@@ -476,7 +476,7 @@ tabPanel("Causal inference report", icon = icon("fa-solid fa-file"),
            h4("Examine triangulated evidence"),
            HTML("You can use the buttons below to examine the results for each approach.<br>"),
            tabsetPanel(type="pills",
-             tabPanel(title = "Multivariable regression (M)",id="mvr",
+             tabPanel(title = "Multivariable regression (MVR)",id="mvr",
                       fluidRow(
                         column(12,align="left",
                                withSpinner(uiOutput(outputId = "tri_report_mvr",style="text-align: left;"),image="spinner.gif"),
@@ -490,21 +490,21 @@ tabPanel("Causal inference report", icon = icon("fa-solid fa-file"),
                                withSpinner(plotlyOutput("triangDOSEplot"),image = "spinner.gif")
                         )
                       )),
-             tabPanel(title = "Parent negative control comparison (N)",id="negcon",
+             tabPanel(title = "Parent negative control comparison (PC)",id="negcon",
                       fluidRow(
                         column(12,align="left",
                                withSpinner(uiOutput(outputId = "tri_report_negcon",style="text-align: left;"),image="spinner.gif"),
                                withSpinner(plotlyOutput("triangNCplot"),image = "spinner.gif")
                         )
                       )),
-             tabPanel(title = "Postnatal negative control comparison (P)",id="timing",
+             tabPanel(title = "Postnatal negative control comparison (PN)",id="timing",
                       fluidRow(
                         column(12,align="left",
                                withSpinner(uiOutput(outputId = "tri_report_timing",style="text-align: left;"),image="spinner.gif"),
                                withSpinner(plotlyOutput("triangTIMEplot"),image = "spinner.gif")
                         )
                       )),
-             tabPanel(title = "Genetic risk score (G)",id="grs",
+             tabPanel(title = "Mendelian Randomization (MR)",id="grs",
                       fluidRow(
                         column(12,align="left",
                                withSpinner(uiOutput(outputId = "tri_report_grs",style="text-align: left;"),image="spinner.gif"),

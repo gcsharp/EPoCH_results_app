@@ -35,15 +35,15 @@ triang_res <- as.character(min(triang_sum$value[grepl("of evidence",triang_sum$v
 
 This report provides evidence from the following types of analysis (depending on data availability):
 
--   Multivariable regression of the exposure any time in pregnancy (M)
+-   Multivariable regression of the exposure any time in pregnancy (MVR)
 
 -   Dose-response (D)
 
--   Maternal vs partner comparisons (N)
+-   Maternal vs partner comparisons (parental comparison negative control; PC)
 
--   Temporal specificity (timing of exposure) (P)
+-   Temporal specificity (postnatal negative control; PN)
 
--   Genetic risk scores (G)
+-   Mendelian Randomization (Genetic risk scores; MR)
 
 
 This report also gives a little more information to provide further help in interpreting relationships. This further information will not necessarily tell us anything more about causality, but it can help us understand and contextualise the findings.

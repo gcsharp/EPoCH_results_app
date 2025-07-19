@@ -217,8 +217,8 @@ create_coeff_plot <- function(df, ydat, title,maxheight) {
                       showarrow = FALSE) %>%
       
       layout(shapes = list(vline(x_origin)),
-             xaxis = list(title = xtitle,zeroline=F,
-                          range=c(min(df$or_lci)-0.001,max(df$or_uci)+0.001)),
+#             xaxis = list(title = xtitle,zeroline=F,
+#                          range=c(min(df$or_lci)-0.001,max(df$or_uci)+0.001)),
              yaxis = list(title="")) %>%
       config(toImageButtonOptions = list(format = "png", scale = 5))
     
@@ -263,8 +263,8 @@ create_coeff_plot <- function(df, ydat, title,maxheight) {
                       showarrow = FALSE) %>%
       
       layout(shapes = list(vline(x_origin)),
-             xaxis = list(title = xtitle,zeroline=FALSE,
-                          range=c(min(df$lci)-0.001,max(df$uci)+0.001)),
+             # xaxis = list(title = xtitle,zeroline=FALSE,
+             #              range=c(min(df$lci)-0.001,max(df$uci)+0.001)),
              yaxis = list(title = "")) %>%
       config(toImageButtonOptions = list(format = "png", scale = 5))
   }

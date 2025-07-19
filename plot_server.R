@@ -156,20 +156,24 @@ output$exposureManhattanPlot_p <- renderPlotly({
     }
 
     if (length(plots) == 1){
-      fig <- subplot(plots[[1]], shareX = TRUE, shareY = TRUE, titleX = TRUE)
+      fig <- subplot(plots[[1]], shareX = TRUE, shareY = TRUE, titleX = TRUE,nrows=1)
     } else if (length(plots) == 2) {
-      fig <- subplot(plots[[1]], plots[[2]], shareX = TRUE, shareY = TRUE, titleX = TRUE)
+      fig <- subplot(plots[[1]], plots[[2]], shareX = TRUE, shareY = TRUE, titleX = TRUE,nrows=1)
     } else if (length(plots) == 3) {
-      fig <- subplot(plots[[1]], plots[[2]], plots[[3]], shareX = TRUE, shareY = TRUE, titleX = TRUE)
+      fig <- subplot(plots[[1]], plots[[2]], plots[[3]], shareX = TRUE, shareY = TRUE, titleX = TRUE,nrows=1)
     } else if (length(plots) == 4) {
-      fig <- subplot(plots[[1]], plots[[2]], plots[[3]], plots[[4]], shareX = TRUE, shareY = TRUE, titleX = TRUE)
+      fig <- subplot(plots[[1]], plots[[2]], plots[[3]], plots[[4]], shareX = TRUE, shareY = TRUE, titleX = TRUE,nrows=1)
     }
 
-    fig <- fig %>% layout(yaxis = list(title = NULL,
-                                       showline = FALSE,
-  #                                     ticktext = str_to_sentence(y_data),
- #                                      tickvals = seq.int(1,length(y_data)),
-                                       tickmode = "array"))
+    
+    fig <- fig %>%
+      layout(
+        xaxis = list(title = "Effect size", zeroline = FALSE),  # Shared X axis title
+        margin = list(t = 30),
+        showlegend = FALSE,
+        yaxis = list(title = NULL,
+                    showline = FALSE,
+                    tickmode = "array"))
     })
 })
   
