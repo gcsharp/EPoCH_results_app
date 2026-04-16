@@ -162,7 +162,7 @@ ui <- function(request) {
                                 br(),
                                 img(src='moba-logo.png', style='width: 40%; display: block; margin-left: auto; margin-right: auto;'),
                                 br(),
-                                p(HTML("<p>The Norwegian Mother, Father and Child Cohort Study (MOBA) is a Norwegian national longitudinal study where over 90,000 pregnant women were recruited from 1998 to 2008. More than 70,000 fathers have participated. Click to see the <a href='https://pubmed.ncbi.nlm.nih.gov/16926217/'>cohort profile</a>.</p>")),
+                                p(HTML("<p>The Norwegian Mother, Father and Child Cohort Study (MoBa) is a population-based longitudinal pregnancy cohort study conducted by the Norwegian Institute of Public Health.  The cohort includes approximately 114,500 children, 95,200 mothers and 75,200 fathers. Click to see the <a href='https://pubmed.ncbi.nlm.nih.gov/16926217/'>cohort profile</a>.</p>")),
                                 DTOutput("mobatable")
                        )
                          )#closing tabsetpanel containing cohort details
@@ -544,10 +544,11 @@ tabPanel("Download data", icon = icon("fa-solid fa-download"),
            checkboxGroupInput("checklist", label=NULL,width='100%',
                              choiceNames= list(
                                            HTML("<p>I understand the limitations of the EPoCH study (as outlined in the EPoCH paper, linked from the <a href='https://gcsharp.github.io/EPoCH_website/'>EPoCH study website</a>) and will consider these when drawing inferences and interpreting results </p>"),
-                                                HTML("<p>I will contact Dr Gemma Sharp, the principal investigator for EPoCH, if I am unsure of any of the details of the study (up-to-date contact information on the <a href='https://gcsharp.github.io/EPoCH_website/'>EPoCH study website</a>) </p>"),
-                                                     HTML("<p>I will cite the EPoCH study paper if I use results from EPoCH, and/or if I use EPoCH explorer or downloaded data in my own analyses and/or to generate hypotheses that form the basis of my own research. </p>")
+                                                HTML("<p>I will contact Prof Gemma Sharp, the principal investigator for EPoCH, if I am unsure of any of the details of the study (up-to-date contact information on the <a href='https://gcsharp.github.io/EPoCH_website/'>EPoCH study website</a>) </p>"),
+                                                     HTML("<p>I will cite the EPoCH study paper if I use results from EPoCH, and/or if I use EPoCH explorer or downloaded data in my own analyses and/or to generate hypotheses that form the basis of my own research. </p>"),
+                                           HTML("<p>I will acknowledge the cohorts that contributed data to the EPoCH study (ALSPAC, BiB, MCS, MoBa).</p>")
                                            ),
-                             choiceValues=list("p1","p2","p3"),
+                             choiceValues=list("p1","p2","p3", "p4"),
                              selected=NULL),
            textOutput("message"),
            downloadButton("download_results","Download EPoCH study results", 

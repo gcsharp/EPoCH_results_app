@@ -490,7 +490,7 @@ observeEvent(input$forest_outlink,{
 observeEvent(input$checklist, {
   selected_items <- input$checklist
   
-  if (is.null(selected_items) || length(selected_items) < 3) {
+  if (is.null(selected_items) || length(selected_items) < 4) {
     output$message <- renderText({
       "You must agree to all conditions to download the data"
     })
