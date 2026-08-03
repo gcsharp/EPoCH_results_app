@@ -515,7 +515,7 @@ output$download_results <-downloadHandler(
         shiny::incProgress(1/10)
         Sys.sleep(1)
         shiny::incProgress(5/10)
-        # write.csv(global_data$data$all_res[,c("model","exposure_class","exposure_subclass","exposure_time","exposure_type","exposure_source","person_exposed","exposure_dose","outcome_class","outcome_subclass1","outcome_subclass2","outcome_time","outcome_type","cohorts","total_n","total_n_exposure","total_n_outcome","est","se","p","i2","hetp")], file,row.names=F) COMMENTED FOR NOW UNTIL FINAL VERSION
+        write.csv(global_data$data$all_res[,c("model","exposure_class","exposure_subclass","exposure_time","exposure_type","exposure_source","person_exposed","exposure_dose","outcome_class","outcome_subclass1","outcome_subclass2","outcome_time","outcome_type","cohorts","total_n","total_n_exposure","total_n_outcome","est","se","p","i2","hetp")], file,row.names=F)
       }
     )
   }

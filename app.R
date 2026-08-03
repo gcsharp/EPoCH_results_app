@@ -1,55 +1,3 @@
-## TO DO:
-
-## why do so many of the results have I2==0? Even when there's more than one cohort
-## in CI report, caffeine exposure type is continuous - what is it in the triangulation summary script? - it's either 
-# coef plot issues:
-    ## coef put all subplots on same axis range - HAVE TRIED MULTIPLE OPTIONS BUT CAN'T MAKE IT WORK, SO PUT ON HOLD
-   ## consider adding another tab under coef plot for coef plots by outcome - SO MUCH EXTRA WORK FOR LITTLE GAIN, SO SHELVED FOR NOW
-# forest tab
-    ## put on drop downs for everything, same as for coeff
-    ## plot takes ages to load
-
-## DONE:
-## remove 3b results if same as 2b results
-# triangulation tab
-## change terminology to "parental comparison" and "timing comparison" as both are negative controls
-## sort out colours and for GRS sort out the y axis which currently has time but should be GRS type
-## need to add an error message when the plot can't be drawn due to insufficient data (e.g. partner smoking fmi grs and other exposures)
-## crashing for hdl cholesterol and insulin as outc, partner/mother smoking as exp (maybe something to do with letter case) - check this is resolved?
-## Sup file containing tableones - includes some NAs, and some with cell size <5 (eg moba heavy drinking in pregnancy)
-## change terminology around ASD risk
-## consider adding another drop down for timing of outcome as plots look too busy and patterns are hard to extract otherwise
-## check data and coding for asthma and eczema - negative assoc with smoking - it's just in moba I think
-## verbal summary of odds ratio - rounded a bit too far, e.g. an OR or 0.85 is summarised as a 10% lower odds
-## Depressive symptoms should be under outcome subclass 1 behaviour and affect? Currently have their own subclass 1
-## runs locally but not in published version - something to do with triang summaries (perhaps not read/stored correctly?)
-## add linking text to explain how each graph reveals something about causal inference
-## why do we have results for model b for GRS that include alspac and BiB? Should just be MoBa with paternal grs data?
-## Volcano plot ranked version not right - rank pvalues before generating volcanoes, else all paternal seem smaller than maternal
-## doesn't look like model 3b is different from 2b if exposure in first trimester - check that first trimester should be/is being adjusted for preconception - It doesn't appear to be. So two options: 1) go back to cohorts and rerun with adjustment, 2) remove model 3 if exposure in first trimester and have model 3 just for adjusting for previous TPs IN PREG (and any time in preg if exp=postnatal). Have gone with opt 2 for now. If update to opt 1 in future, will have to edit combine_clean_meta_results
-## make dose of SEP make sense - maybe change for all, so dose is called level or something and it's heavy vs none, light vs none, any vs none, etc and for SEP, lowest vs other
-## remove age and sex adjusted BMI as it's confusing and the results are similar to non-adjusted (and we adjust for age and sex in the model anyway)
-##change names of models, remove model c etc
-##change SEP terminology to make it clear we're talking about lowest vs other SEP
-## MCS any drinking in pregnancy ordinal should be binary /////
-## model 3b doesn't exist for alcohol postnatal mother binary, is that right? /////
-## Why are there a bunch of psychosocial continuous outcomes not available for cohorts other than MCS for mother ever alcohol in preg model 1a? Or moba for model 2b partner alcohol ever in preg. check ordinal and binary alcohol exposures the same in each cohort \\\
-## download tab = select only some columns
-## add interpretation tab fa-solid fa-quotes - remember that GRS are continuous so I think two exposures (GRS and caffeine) are continuous therefore the text needs updating for continuous exposures
-## DONE: coef a bit broken - name of exposure sometimes covers data (if missing exp/outcome combo). Possible work around would be to just title Comparison 1, 2, etc and have a table above summarising what each is.
-## DONE: confidence intervals sometimes join up over different lines.... example in screenshots
-## DONE some psychosocial outcomes are called "behaviour and affect" for subclass 2, but should be more specific than that - these are depressive traits
-## DONE change sdq (etc?) binary cut-off traits to have a different name from continuous, e.g. emotional problems (cont) vs emotional problems >CT etc, change 'autism' to autistic traits >CT if not based on diagnosis. CT=clinical threshold. Can do this in the original data/key or in the preparation/qc script
-## DONE why is heavy maternal alcohol in second and third trim not available (bw as outcome)? DONE - it's because there aren't enough exposed
-## manhattan exposures on x axis remove na from continuous or binary
-## manhattan sort out tool tips (e.g. estimate to SMD and OR, NA where applicable)
-## manhattan not all outcomes listed on x for eg SEP-psychosocial
-## Add error message to volcanoes and manhattans to appear if eg model 3 for SEP doesn't exist, OR have model options dependent on previous selections
-## run BiB stratified by ethnicity too for cross context comparison
-## in original data, change sep binary comparison to be lowest vs any other, so that exposed == exposed to low SEP. Think I have done this (but check) need to rerun phewas and meta-analysis
-## check sex stratified models because they look like they maybe haven't run for all exp/out combinations - they haven't run for continuous outcomes - have fixed. need to re-run for MoBa
-## remove model c? - partially done - have done it in the combine_clean_meta_results file, but it could also happen in the phewas running file to cut down on time it takes to run that file
-
 
 # Load required packages -------------------------------
 library(shiny)
@@ -543,7 +491,7 @@ tabPanel("Download data", icon = icon("fa-solid fa-download"),
            br(),
            checkboxGroupInput("checklist", label=NULL,width='100%',
                              choiceNames= list(
-                                           HTML("<p>I understand the limitations of the EPoCH study (as outlined in the EPoCH paper, linked from the <a href='https://gcsharp.github.io/EPoCH_website/'>EPoCH study website</a>) and will consider these when drawing inferences and interpreting results </p>"),
+                                           HTML("<p>I understand the limitations of the EPoCH study (as outlined in the <a href='https://pubmed.ncbi.nlm.nih.gov/42490625/'>PLOS Medicine paper</a>) and will consider these when drawing inferences and interpreting results </p>"),
                                                 HTML("<p>I will contact Prof Gemma Sharp, the principal investigator for EPoCH, if I am unsure of any of the details of the study (up-to-date contact information on the <a href='https://gcsharp.github.io/EPoCH_website/'>EPoCH study website</a>) </p>"),
                                                      HTML("<p>I will cite the EPoCH study paper if I use results from EPoCH, and/or if I use EPoCH explorer or downloaded data in my own analyses and/or to generate hypotheses that form the basis of my own research. </p>"),
                                            HTML("<p>I will acknowledge the cohorts that contributed data to the EPoCH study (ALSPAC, BiB, MCS, MoBa).</p>")
